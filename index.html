@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>nodejs</title>
+    <style>
+       
+        .container{
+            background-color: black;
+            border: 2px solid black;
+            height: 500px;
+            width: 400px;
+            margin-top:120px ;
+            margin-left: 500px;
+            border-radius: 10px ;
+        }
+        .sun i{
+            height: 75px;
+            width: 75px;
+        }
+        
+        #sun .fas{
+            animation:fas-anime 3s linear infinite alternate;
+        
+        }
+        @keyframes fas-anime{
+            from{
+                transform: scale(0.8);
+            }
+            to{
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+     <div id="sun"><i class="fas fa-sun" style="color:yellow;margin-left: 130px;margin-top: 50px; font-size: 100px;"></i></div>
+     <div class="name" style="color:white;margin-left:100px;margin-top: 50px;font-size:34px ;"><i class="fas fa-street-view" ></i>{%Location%},{%country%}</div>
+
+     <div id="dateday" style="color:white;margin-left:100px;margin-top: 50px;"> WED | OCT 23 | 10:49AM</div>
+     <div class="temperature" style="color:white;margin-left:130px;margin-top: 50px;font-size:34px ;"> {%tempval%}</div>
+     <div class="minmax" style="color:white;margin-left:100px;margin-top: 50px;"> Min {%tempmin%}| Max {%tempmax%}</div>
+ 
+    </div>
+
+
+
+    <script>
+        const curdate=document.getElementById("dateday");
+        const weathericon =document.getElementById("sun");
+        const tempstatus="{%tempstatus%}";
+         if(tempstatus=="Sunny"){
+            weathericon.innerHtml="<i class='fas fa-sun' style='color:yellow;margin-left: 130px;margin-top: 50px; font-size: 100px;'></i>";}
+            else if(tempstatus=="Clouds"){
+            weathericon.innerHtml="<i class='fas fa-cloud' style='color:#f1f2f6;margin-left: 130px;margin-top: 50px; font-size: 100px;'></i>";}
+            else if(tempstatus=="Rainy"){
+            weathericon.innerHtml="<i class='fas fa-cloud-rain' style='color:#a4b0be;margin-left: 130px;margin-top: 50px; font-size: 100px;'></i>";}
+            else {
+            weathericon.innerHtml="<i class='fas fa-cloud' style='color:#44c3de;margin-left: 130px;margin-top: 50px; font-size: 100px;'></i>";}
+         
+        const getCurrentDay=()=>{
+            var weekday=new Array(7);
+            weekday[0]='SUN';
+            weekday[1]='MON';
+            weekday[2]='TUES';
+            weekday[3]='WES';
+            weekday[4]='THURS';
+            weekday[5]='FRI';
+            weekday[6]='SATUR';
+
+           let currentTime = new Date();
+           let day=weekday[currentTime.getDay()];
+           return day;
+
+        };
+        const getCurrentTime=()=>{
+            var months=[
+                "JAN",
+                "FEB",
+                "MARCH",
+                "APRIL",
+                "MAY",
+                "JUNE",
+                "JULY",
+                "AUGUST",
+                "SEP",
+                "OCT",
+                "NOV",
+                "DEC"
+            ]
+            var now=new Date();
+            var month=months[now.getMonth()];
+            var date=now.getDate();
+            var hours=now.getHours();
+            var mins=now.getMinutes();
+
+            let periods="AM";
+            if(hours>11){
+                periods="PM";
+                if(hours>12){
+                    hours-=12;
+                }
+                    
+            }
+            if(mins<10){
+                min ="0"+mins;
+            }
+
+                return `${month} ${date} | ${hours}:${mins}${periods}`;
+
+                };
+
+                curdate.innerHTML= getCurrentDay() + " | " + getCurrentTime();
+
+
+
+
+    </script>
+</body>
+
+
+</html>
+
+
